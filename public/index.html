@@ -25,20 +25,71 @@
     </head>
     <body>
       <div class='container'>
-        <div class='row-fluid'>
           <div class='row-fluid'>
-            <div class='col-md-4'></div>
-            <div id='graph' class='col-md-8'></div>
+            <div class='col-md-4'>
+            <input type='text' data-bind='value:code'/>
+            </div>
+            <div data-bind='component: { name: "juggler-graph", params: { nodes: nodes, edges: edges }}' class='col-md-8'></div>
           </div>
-        </div>
       </div>
 
       <script type='text/javascript'>
         juggler.ready(function(j){
           console.info('Page loaded');
-          j.graph.draw(document.querySelector('#graph'));
+          // var nodes = [1, 2, 3, 4, 5],
+          // edges = [
+          //   [1, 2],
+          //   [3, 4],
+          //   [5, 2],
+          //   [3, 5],
+          //   [1, 4]
+          // ];
+          //j.graph.draw(document.querySelector('#graph'),nodes,edges);
         });
+        function ParsePrufer(code){
+            var n = code.length + 2,
+                nodes = _.range(1, n+1),
+                edges= [];
+                count = _.range(1, n+1);
+                without = _.range(1, n+1);
 
+            for (var i = 0; i < code.length; i++) {
+              without = _.without(without, code[i])
+            }
+
+            for (var i = 0; i < n -2; i++) {
+              var from = without.shift(),
+              to = code.shift();
+              count = _.without(count,from);
+              edges.push([from,to]);
+            }
+            edges.push(count);
+
+            console.log(nodes);
+            console.log(edges);
+            return {
+              nodes:nodes,
+              edges:edges
+              };
+        }
+
+
+        function Juggler(){
+
+          this.code = ko.observable('[4, 4, 9, 4, 8, 3, 1]');
+          this.prufer = ko.computed(function(){
+            return ParsePrufer(JSON.parse(this.code()));
+          }, this);
+
+          this.nodes = ko.computed(function(){
+            return this.prufer().nodes;
+          }, this);
+
+          this.edges = ko.computed(function(){
+            return this.prufer().edges;
+          }, this);
+        }
+        ko.applyBindings(new Juggler());
       </script>
     </body>
 </html>

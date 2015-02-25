@@ -1,46 +1,135 @@
+// (function(app, $) {
+//   app.graph = app.graph || {};
+//   app.graph.draw = function(container, nodes, edges) {
+//     function nodesToObjects(nodes) {
+//       return _.map(nodes, function(node) {
+//         return {
+//           id: node
+//         };
+//       });
+//     }
+//
+//     function edgesToObjects(edges) {
+//       return _.map(edges, function(edge) {
+//         return {
+//           from: edge[0],
+//           to: edge[1]
+//         };
+//       });
+//     }
+//
+//     var data = {
+//       nodes: nodesToObjects(nodes),
+//       edges: edgesToObjects(edges)
+//     };
+//
+//     var options = {
+//       width: '512px',
+//       height: '512px'
+//     };
+//
+//     var network = new vis.Network(container, data, options);
+//   };
+// })(window.juggler = window.juggler || {}, jQuery);
+
 (function(app, $) {
-  app.graph = app.graph || {};
-  app.graph.draw = function(container) {
-    var nodes = [{
-      id: 1,
-      label: '1'
-    }, {
-      id: 2,
-      label: '2'
-    }, {
-      id: 3,
-      label: '3'
-    }, {
-      id: 4,
-      label: '4'
-    }, {
-      id: 5,
-      label: '5'
-    }];
+  ko.components.register('juggler-graph', {
+    viewModel: function(params) {
+      params = params || {
+        nodes: [1, 2, 3, 4, 5],
+        edges: [
+          [1, 2],
+          [3, 4],
+          [5, 2],
+          [3, 5],
+          [1, 4],
+          [1, 3],
+          [2, 3],
+          [1, 5]
+        ]
+      };
 
-    // create an array with edges
-    var edges = [{
-      from: 1,
-      to: 2
-    }, {
-      from: 1,
-      to: 3
-    }, {
-      from: 2,
-      to: 4
-    }, {
-      from: 2,
-      to: 5
-    }];
+      var nodes = params.nodes,
+        edges = params.edges;
 
-    var data = {
-      nodes: nodes,
-      edges: edges
-    };
-    var options = {
-      width: '512px',
-      height: '512px'
-    };
-    var network = new vis.Network(container, data, options);
+      this.nodes = ko.observable(nodes);
+      this.edges = ko.observable(edges);
+    },
+    template: '<div data-bind="graph: { nodes:nodes(), edges:edges()}"></div>'
+  });
+
+  ko.bindingHandlers.graph = {
+    init: function(element, valueAccessor, allBindings, viewModel,
+      bindingContext) {
+
+      var params = ko.utils.unwrapObservable(valueAccessor());
+
+      function nodesToObjects(nodes) {
+        nodes = ko.utils.unwrapObservable(nodes);
+        return _.map(nodes, function(node) {
+          return {
+            id: node
+          };
+        });
+      }
+
+      function edgesToObjects(edges) {
+        edges = ko.utils.unwrapObservable(edges);
+        return _.map(edges, function(edge) {
+          return {
+            from: edge[0],
+            to: edge[1]
+          };
+        });
+      }
+
+      var data = {
+        nodes: nodesToObjects(params.nodes),
+        edges: edgesToObjects(params.edges)
+      };
+
+      var options = {
+        width: '512px',
+        height: '512px'
+      };
+
+      var network = new vis.Network(element, data, options);
+    },
+    update: function(element, valueAccessor, allBindings, viewModel,
+      bindingContext) {
+
+      var params = ko.utils.unwrapObservable(valueAccessor());
+
+      function nodesToObjects(nodes) {
+        nodes = ko.utils.unwrapObservable(nodes);
+        return _.map(nodes, function(node) {
+          return {
+            id: node
+          };
+        });
+      }
+
+      function edgesToObjects(edges) {
+        edges = ko.utils.unwrapObservable(edges);
+        return _.map(edges, function(edge) {
+          return {
+            from: edge[0],
+            to: edge[1]
+          };
+        });
+      }
+
+      var data = {
+        nodes: nodesToObjects(params.nodes),
+        edges: edgesToObjects(params.edges)
+      };
+
+      var options = {
+        width: '512px',
+        height: '512px'
+      };
+
+      var network = new vis.Network(element, data, options);
+    }
   };
 })(window.juggler = window.juggler || {}, jQuery);
