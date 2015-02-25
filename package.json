@@ -1,0 +1,39 @@
+{
+	"name": "Juggler",
+	"version": "1.0.0",
+	"description": "Juggler.",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/SergeyRyzhov/juggler.git"
+	},
+	"author": "Sergey Ryzhov",
+	"main": "server.js",
+	"engines": {
+		"node": "0.10.x"
+	},
+	"private": true,
+	"keywords": [
+	],
+	"bugs": "https://github.com/SergeyRyzhov/juggler",
+	"licenses": [{
+		"type": "MIT",
+		"url": "http://opensource.org/licenses/MIT"
+	}],
+	"contributors": "Sergey Ryzhov",
+	"homepage": "",
+	"dependencies": {
+		"express": "*",
+		"morgan": "*",
+		"less": "*",
+		"less-middleware": "*",
+		"compression": "*",
+		"log4js": "*",
+		"underscore": "*",
+		"node-fs": "*"
+	},
+	"scripts": {
+		"test": "node tests.js",
+		"start": "node server.js",
+		"grunt": "grunt gruntfile.js"
+	}
+}
