@@ -23,35 +23,42 @@
 
   <script type='text/javascript' src='js/common/juggler.common.js'></script>
   <script type='text/javascript' src='js/graph/juggler.graph.view.js'></script>
+  <script type='text/javascript' src='js/viewModels/juggler.main.js'></script>
 </head>
 
 <body>
   <div class='container'>
-    <div class='row-fluid'>
-      <div class='col-md-4'>
+    <div class="page-header">
+      <h1>Prüfer code examples
+        <small>generate or input</small>
+      </h1>
+    </div>
+    <div class='row'>
+      <div class='col-md-3'>
 
         <div class="input-group">
           <input type="number" class="form-control" data-bind='value:vertex, event: {keypress: onEnter}' placeholder="Input number">
           <span class="input-group-btn">
             <button type="button" class="btn btn-default" data-bind='click:add'>
-              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-plus" aria-hidden="true" title='Add'></span>
             </button>
-
 
             <button type="button" class="btn btn-default" data-bind='click:reset'>
-              <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-remove" aria-hidden="true" title='Reset'></span>
             </button>
 
-
+            <button type="button" class="btn btn-default" data-bind='click:generate'>
+              <span class="glyphicon glyphicon-refresh" aria-hidden="true" title='Generate'></span>
+            </button>
           </span>
         </div>
         <div class="well well-sm" data-bind='text:code'>...</div>
-
       </div>
-      <div data-bind='component: { name: "juggler-graph", params: { nodes: nodes, edges: edges }}' class='col-md-8'></div>
+      <div data-bind='component: { name: "juggler-graph", params: { nodes: nodes, edges: edges }}' class='col-md-9' style='bottom:0px;'></div>
     </div>
-  </div>
 
+  </div>
+  <center><footer><icon aria-hidden="true" class="glyphicon glyphicon-copyright-mark right5"></icon><span>Copiright 2015,Ryzhov Sergey</span></footer></center>
   <script type='text/javascript'>
     juggler.ready(function(j) {
       console.info('Page loaded');
@@ -64,117 +71,8 @@
       //   [1, 4]
       // ];
       //j.graph.draw(document.querySelector('#graph'),nodes,edges);
+      ko.applyBindings(new juggler.viewModels.Juggler());
     });
-
-    function ParsePrufer(code) {
-      code = code.slice();
-      // var edges = [];
-      // var B = _.range(1, code.length + 3); //массив B, который заполнен числами с 1 до размера кода прюфера + 2
-      // // for (var i = 1; i < code.length + 3; i++) {
-      // //   B.push(i);
-      // // }
-      // var n = code.length + 2;
-      // for (var i = 0; i < code.length; i++) {
-      //   var minimum = n;
-      //
-      //   for (var j = 0; j < B.length; j++)
-      //   // foreach (var b in B)
-      //   {
-      //     var b = B[j];
-      //     if (!_.contains(code, b)) {
-      //       minimum = Math.min(minimum, b);
-      //     }
-      //   }
-      //   edges.push([code[i], minimum]);
-      //   // code.RemoveAt(i);
-      //   code = code.splice(i, 1);
-      //   i--;
-      //   B = _.without(B, minimum);
-      // }
-      // edges.push([B[0], B[(B.length - 1)]]);
-      //
-      // console.log(edges);
-      //return result;
-
-
-
-      var n = code.length + 2,
-        nodes = _.range(1, n + 1),
-        edges = [],
-        count = _.range(1, n + 1);
-
-      without = _.range(1, n + 1);
-
-      for (var i = 0; i < code.length; i++) {
-        without = _.without(without, code[i])
-      }
-
-      // console.log('Withpout', without);
-      // console.log('Count', count);
-      for (var i = 0; i < n - 2; i++) {
-        var from = without.shift(),
-          to = code.shift();
-
-        // console.debug('edge: ', [from, to]);
-        count = _.without(count, from);
-        edges.push([from, to]);
-      }
-      // console.debug('edge: ', count);
-      edges.push(count);
-
-      console.log(nodes);
-      console.log(edges);
-      return {
-        nodes: nodes,
-        edges: edges
-      };
-    }
-
-
-    function Juggler() {
-
-      this.vertex = ko.observable();
-      this.codeArray = ko.observableArray([4, 4, 9, 4, 8, 3, 1]);
-
-      this.code = ko.computed(function() {
-        return JSON.stringify(this.codeArray());
-      }, this);
-
-      this.prufer = ko.computed(function() {
-        return ParsePrufer(this.codeArray());
-      }, this);
-
-      this.nodes = ko.computed(function() {
-        return this.prufer().nodes;
-      }, this);
-
-      this.edges = ko.computed(function() {
-        return this.prufer().edges;
-      }, this);
-
-      this.onEnter = _.bind(function(d, e) {
-        // e.keyCode === 13 && this.add();
-        return true;
-      }, this);
-
-      this.add = _.bind(function() {
-        var v = JSON.parse(this.vertex());
-        if (v > 0) {
-          this.vertex(undefined);
-          this.codeArray.push(v);
-        } else {
-          this.vertex(0);
-        }
-      }, this);
-
-      this.reset = _.bind(function() {
-        this.codeArray([]);
-      }, this);
-
-
-      // _.bindAll(this, 'onEnter', 'add', 'reset');
-    }
-    ko.applyBindings(new Juggler());
   </script>
 </body>
 

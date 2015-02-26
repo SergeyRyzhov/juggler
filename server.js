@@ -3,7 +3,7 @@
  * Copyright (c) Sergey Ryzhov 201752 <serega.rf@gmail.com>
  * MIT licensed
  */
- 
+
 var express = require('express'),
   morgan = require("morgan"),
   log4js = require("log4js"),
@@ -11,8 +11,8 @@ var express = require('express'),
   lessMiddleware = require('less-middleware'),
   router = express.Router(),
   app = express(),
-  logger = log4js.getLogger('Server');  
-  
+  logger = log4js.getLogger('Server');
+
 app.use(router);
 
 router.use(morgan('combined', {
@@ -22,7 +22,7 @@ router.use(morgan('combined', {
       }
     }
   }));
-  
+
 router.use(lessMiddleware(__dirname + '/public'));
 router.use(express.static(__dirname + '/public'));
 
@@ -31,7 +31,7 @@ router.use(compression({
     if (req.headers['x-no-compression']) {
       return false;
     }
-	
+
     return compression.filter(req, res);
   }
 }));
