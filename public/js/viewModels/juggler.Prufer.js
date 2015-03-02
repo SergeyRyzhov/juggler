@@ -1,48 +1,6 @@
 (function(app, $) {
-  // ko.components.register('juggler', {
-  // 	viewModel: function(params) {
-  //
-  // 	},
-  // 	template: "<div class='container'> < div class = 'row-fluid' > < div class =
-  // 		'row-fluid' >
-  // 		< div class = 'col-md-4' > < /div> < div id = 'graph'
-  // 	class = 'col-md-8' > < /div> < /div > < /div> < /div > "
-  // });
-
-
-  app.viewModels = app.viewModels || {};
-  app.viewModels.Juggler = Juggler;
-
-  function ParsePrufer(code) {
-    var arr = code.slice(),
-      edges = [],
-      n = arr.length + 2,
-      B = _.range(1, n + 1),
-      nodes = _.range(1, n + 1);
-
-    for (var i = 0; i < arr.length; i++) {
-      var minimum = _.min(_.filter(B, function(b) {
-        return !_.contains(arr, b);
-      }));
-
-      edges.push([arr[i], minimum]);
-      arr.shift();
-      i--;
-
-      var index = B.indexOf(minimum);
-      if (index > -1) {
-        B.splice(index, 1);
-      }
-    }
-    edges.push([_.first(B), _.last(B)]);
-    return {
-      nodes: nodes,
-      edges: edges
-    };
-  }
-
-  function Juggler() {
-
+  ko.components.register('juggler-prufer', {
+    viewModel: function(params) {
       this.vertex = ko.observable();
       this.codeArray = ko.observableArray([1, 4, 5, 5]);
 
@@ -92,7 +50,39 @@
         }
         //this.codeArray(_.shuffle(_.range(1, n - 1)));
       }, this);
-
+    },
+    template: {
+      fromUrl: 'prufer.html',
+      maxCacheAge: 60000
     }
-    // _.bindAll(this, 'onEnter', 'add', 'reset');
+  });
+
+  function ParsePrufer(code) {
+    var arr = code.slice(),
+      edges = [],
+      n = arr.length + 2,
+      B = _.range(1, n + 1),
+      nodes = _.range(1, n + 1);
+
+    for (var i = 0; i < arr.length; i++) {
+      var minimum = _.min(_.filter(B, function(b) {
+        return !_.contains(arr, b);
+      }));
+
+      edges.push([arr[i], minimum]);
+      arr.shift();
+      i--;
+
+      var index = B.indexOf(minimum);
+      if (index > -1) {
+        B.splice(index, 1);
+      }
+    }
+    edges.push([_.first(B), _.last(B)]);
+    return {
+      nodes: nodes,
+      edges: edges
+    };
+  }
+
 })(window.juggler = window.juggler || {}, jQuery);

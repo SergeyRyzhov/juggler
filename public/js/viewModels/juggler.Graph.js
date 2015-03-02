@@ -1,37 +1,3 @@
-// (function(app, $) {
-//   app.graph = app.graph || {};
-//   app.graph.draw = function(container, nodes, edges) {
-//     function nodesToObjects(nodes) {
-//       return _.map(nodes, function(node) {
-//         return {
-//           id: node
-//         };
-//       });
-//     }
-//
-//     function edgesToObjects(edges) {
-//       return _.map(edges, function(edge) {
-//         return {
-//           from: edge[0],
-//           to: edge[1]
-//         };
-//       });
-//     }
-//
-//     var data = {
-//       nodes: nodesToObjects(nodes),
-//       edges: edgesToObjects(edges)
-//     };
-//
-//     var options = {
-//       width: '512px',
-//       height: '512px'
-//     };
-//
-//     var network = new vis.Network(container, data, options);
-//   };
-// })(window.juggler = window.juggler || {}, jQuery);
-
 (function(app, $) {
 	ko.components.register('juggler-graph', {
 		viewModel: function(params) {
@@ -50,13 +16,19 @@
 			};
 
 			var nodes = params.nodes,
-				edges = params.edges;
+				edges = params.edges,
+				orgraph = params.orgraph;
 
 			this.nodes = ko.observable(nodes);
 			this.edges = ko.observable(edges);
+			this.orgraph = ko.observable(orgraph);
 		},
-		template: '<div data-bind="graph: { nodes:nodes(), edges:edges()}" style="min-height:512px;"></div>'
+		template: {
+			fromUrl: 'graph.html',
+			maxCacheAge: 60000
+		}
 	});
+
 
 	function graphBinding(element, valueAccessor, allBindings, viewModel,
 		bindingContext) {
@@ -82,10 +54,40 @@
 			});
 		}
 
-		var data = {
-			nodes: nodesToObjects(params.nodes),
-			edges: edgesToObjects(params.edges)
-		};
+		function graphToDot(nodes, edges) {
+			edges = ko.utils.unwrapObservable(edges);
+			// var digraph = 'digraph {';
+
+			var digraph = 'digraph {' + _.reduce(edges, function(memo, edge) {
+				return memo + edge[0].toString() + '->' + edge[1].toString() + ';';
+			}, '') + '}';
+
+			// digraph += '}';
+			return digraph;
+			//  digraph {
+			// 	A - > A;
+			// 	B - > B - > C;
+			// 	B - > D;
+			// 	D - > {
+			// 		B;
+			// 		C
+			// 	}
+			// 	D - > E;
+			// 	F - > F;
+			//  }
+		}
+
+		var data = {};
+		if (params.orgraph) {
+			data = {
+				dot: graphToDot(params.nodes, params.edges)
+			};
+		} else {
+			data = {
+				nodes: nodesToObjects(params.nodes),
+				edges: edgesToObjects(params.edges)
+			};
+		}
 
 		var options = {
 			width: element.offsetWidth + 'px',
