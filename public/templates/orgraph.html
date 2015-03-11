@@ -17,11 +17,17 @@
         </button>
 
         <button type='button' class='btn btn-default' data-bind='click:generate'>
-          <span class='glyphicon glyphicon-refresh' aria-hidden='true' title='Generate'></span>
+          <span class='glyphicon glyphicon-random' aria-hidden='true' title='Generate'></span>
+        </button>
+
+        <button type='button' class='btn btn-default' data-bind='click:renumber'>
+          <span class='glyphicon glyphicon-refresh' aria-hidden='true' title='Renumber'></span>
         </button>
       </span>
     </div>
     <div class='well well-sm' data-bind='text:code'>...</div>
+
+    <span class="label label-warning" data-bind='text:warning'></span>
   </div>
   <div data-bind='component: { name: "juggler-graph", params: { nodes: nodes, edges: edges, orgraph:true }}' class='col-md-7' style='bottom:0px;'></div>
 </div>
