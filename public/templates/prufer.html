@@ -1,6 +1,6 @@
 <div class='row'>
   <div class='page-header'>
-    <h1>Prüfer code
+    <h1><a id='prufer' href="#prufer">Prüfer code</a>
       <small>generate or input</small>
     </h1>
   </div>
@@ -21,7 +21,7 @@
         </button>
       </span>
     </div>
-    <div class='well well-sm' data-bind='text:code'>...</div>
+    <div class='well well-sm text-word-wrap' data-bind='text:code'>...</div>
 
     <span class="label label-warning" data-bind='text:warning'></span>
 
@@ -47,5 +47,5 @@
       </div>
     </div>
   </div>
-  <div data-bind='component: { name: "juggler-graph", params: { nodes: nodes, edges: edges, orgraph:false }}' class='col-md-7' style='bottom:0px;'></div>
+  <div data-bind='component: { name: "juggler-graph", params: { nodes: nodes, edges: edges, orgraph:false }}' class='col-md-8' style='bottom:0px;'></div>
 </div>

@@ -11,6 +11,10 @@
 
   <link rel='stylesheet' href='css/bootstrap.css'>
   <link rel='stylesheet' href='css/bootstrap-theme.css'>
+
+
+  <link rel='stylesheet' href='css/juggler.common.css'>
+
   <script type='text/javascript' src='js/jquery-2.1.3.js'></script>
   <script type='text/javascript' src='js/bootstrap.js'></script>
   <script type='text/javascript' src='js/knockout-3.3.0.js'></script>
@@ -29,23 +33,13 @@
   <script type='text/javascript' src='js/viewModels/juggler.Orgraph.js'></script>
 </head>
 
-<body>
+<body class='container'>
   <div class='row'>
-    <div class='col-xs-1'>
-      <ul class="nav nav-pills nav-stacked" style="position: fixed;">
-        <!-- class="active" -->
-        <li role="presentation" ><a href="#prufer">Prufer</a></li>
-        <li role="presentation"><a href="#orgraph">Orgrpah</a></li>
-      </ul>
-    </div>
-
-    <div class='col-xs-10'>
-      <div id='prufer' class='container js-full-height' data-bind='component: { name: "juggler-prufer"}'>
+      <div class='container js-full-height' data-bind='component: { name: "juggler-prufer"}'>
       </div>
-      <div id='orgraph' class='container js-full-height' data-bind='component: { name: "juggler-orgraph"}'>
+      <div class='container js-full-height' data-bind='component: { name: "juggler-orgraph"}'>
       </div>
     </div>
-  </div>
   <center>
     <footer>
       <icon aria-hidden="true" class="glyphicon glyphicon-copyright-mark"></icon>

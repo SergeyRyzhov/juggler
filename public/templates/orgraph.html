@@ -1,6 +1,6 @@
 <div class='row'>
   <div class='page-header'>
-    <h1>Oriented graphs
+    <h1><a id='orgraph' href="#orgraph">Oriented graphs</a>
       <small>input or generate with renumbering</small>
     </h1>
   </div>
@@ -25,7 +25,7 @@
         </button>
       </span>
     </div>
-    <div class='well well-sm' data-bind='text:code'>...</div>
+    <div class='well well-sm text-word-wrap' data-bind='text:code'>...</div>
 
     <span class="label label-warning" data-bind='text:warning'></span>
 
@@ -57,5 +57,5 @@
     </div>
 
   </div>
-  <div data-bind='component: { name: "juggler-graph", params: { nodes: nodes, edges: edges, orgraph:true }}' class='col-md-7' style='bottom:0px;'></div>
+  <div data-bind='component: { name: "juggler-graph", params: { nodes: nodes, edges: edges, orgraph:true }}' class='col-md-8' style='bottom:0px;'></div>
 </div>
