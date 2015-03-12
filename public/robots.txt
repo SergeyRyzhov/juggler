@@ -1,0 +1,3 @@
+User-Agent: *
+
+Sitemap: http://juggl.herokuapp.com/sitemap.xml
