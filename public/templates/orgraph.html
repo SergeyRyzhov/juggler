@@ -5,29 +5,46 @@
     </h1>
   </div>
   <div class='col-md-3'>
-    <div class='input-group'>
-      <input type='number' class='form-control' data-bind='value:vertex, event: {keypress: onEnter}' placeholder='Input number'>
-      <span class='input-group-btn'>
-        <button type='button' class='btn btn-default' data-bind='click:add'>
-          <span class='glyphicon glyphicon-plus' aria-hidden='true' title='Add'></span>
-        </button>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Configuration</h3>
+      </div>
+      <div class="panel-body">
+        <div class='input-group'>
+          <input type='number' class='form-control' data-bind='value:vertex, event: {keypress: onEnter}' placeholder='Input number'>
+          <span class='input-group-btn'>
+            <button type='button' class='btn btn-default' data-bind='click:add'>
+              <span class='glyphicon glyphicon-plus' aria-hidden='true' title='Add'></span>
+            </button>
 
-        <button type='button' class='btn btn-default' data-bind='click:reset'>
-          <span class='glyphicon glyphicon-remove' aria-hidden='true' title='Reset'></span>
-        </button>
+            <button type='button' class='btn btn-default' data-bind='click:reset'>
+              <span class='glyphicon glyphicon-remove' aria-hidden='true' title='Reset'></span>
+            </button>
 
-        <button type='button' class='btn btn-default' data-bind='click:generate'>
-          <span class='glyphicon glyphicon-random' aria-hidden='true' title='Generate'></span>
-        </button>
+            <button type='button' class='btn btn-default' data-bind='click:generate'>
+              <span class='glyphicon glyphicon-random' aria-hidden='true' title='Generate'></span>
+            </button>
 
-        <button type='button' class='btn btn-default' data-bind='click:renumber'>
-          <span class='glyphicon glyphicon-refresh' aria-hidden='true' title='Renumber'></span>
-        </button>
-      </span>
+            <button type='button' class='btn btn-default' data-bind='click:renumber'>
+              <span class='glyphicon glyphicon-refresh' aria-hidden='true' title='Renumber'></span>
+            </button>
+          </span>
+        </div>
+        <!-- ko if:code() != '[]' -->
+        <div class='well well-sm'>
+          <span class="label label-info">Code</span>
+          <!-- ko text:code -->
+          <!-- /ko -->
+        </div>
+        <!-- /ko -->
+
+        <!-- ko if:warning -->
+        <div class='well well-sm'>
+            <span class="label label-warning" data-bind='text:warning'></span>
+        </div>
+        <!-- /ko -->
+      </div>
     </div>
-    <div class='well well-sm text-word-wrap' data-bind='text:code'>...</div>
-
-    <span class="label label-warning" data-bind='text:warning'></span>
 
     <div class="panel panel-info">
       <div class="panel-heading">
