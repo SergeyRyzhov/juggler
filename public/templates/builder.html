@@ -1,0 +1,84 @@
+<div class='row'>
+  <div class='page-header'>
+    <h1><a id='prufer' href="#prufer">Custom graph builder</a>
+      <small>input vertex or edge</small>
+    </h1>
+  </div>
+  <div class='col-md-3'>
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <h3 class="panel-title">Configuration</h3>
+      </div>
+      <div class="panel-body">
+        <div class='input-group'>
+          <input type='number' class='form-control' data-bind='value:firstVertex, event: {keypress: onEnter}' placeholder=''>
+          <input type='number' class='form-control' data-bind='value:secondVertex, event: {keypress: onEnter}' placeholder=''>
+        </div>
+
+        <span class='btn-group'>
+          <button type='button' class='btn btn-default' data-bind='click:add'>
+            <span class='glyphicon glyphicon-plus' aria-hidden='true' title='Add edge'></span>
+          </button>
+
+          <button type='button' class='btn btn-default' data-bind='click:reset'>
+            <span class='glyphicon glyphicon-remove' aria-hidden='true' title='Reset'></span>
+          </button>
+
+          <!-- <button type='button' class='btn btn-default' data-bind='click:generate'>
+            <span class='glyphicon glyphicon-random' aria-hidden='true' title='Generate'></span>
+          </button> -->
+        </span>
+
+        <!-- ko if:warning -->
+        <div class='well well-sm'>
+          <span class="label label-warning" data-bind='text:warning'></span>
+        </div>
+        <!-- /ko -->
+      </div>
+    </div>
+
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class='well well-sm'>
+          <span class="label label-info">Add</span>
+          the entered vertex to the end of Prufer code
+        </div>
+
+        <!-- <div class='well well-sm'>
+          <span class="label label-success">Generate</span>
+          random Prufer code given length
+        </div> -->
+
+        <div class='well well-sm'>
+          <span class="label label-warning">Reset</span>
+          current graph
+        </div>
+      </div>
+    </div>
+  </div>
+  <div data-bind='component: { name: "juggler-graph", params: { nodes: nodes, edges: edges, orgraph:false }}' class='col-md-7' style='bottom:0px;'></div>
+  <div class='col-md-2'>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Graph structure</h3>
+      </div>
+      <div class="panel-body">
+
+        <p>
+          <span class="badge" data-bind='text: nodes().length'></span> vertices</p>
+        <p>
+          <span class="badge" data-bind='text: edges().length'></span> edges</p>
+
+      </div>
+      <div class='well well-sm'>
+        <span class="label label-success"> Edges </span>
+        <ul data-bind='foreach:edgesText' class='list-group'>
+          <li data-bind='text:$data' class='list-group-item'>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
