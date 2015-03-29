@@ -94,4 +94,5 @@
     // init: graphBinding,
     update: graphBinding
   };
+  
 })(window.juggler = window.juggler || {}, jQuery);
