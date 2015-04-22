@@ -53,7 +53,7 @@
         // console.log(found);
 
 
-        var v = parseInt(this.vertex());
+        var v = Number(this.vertex());
         if (v > 0) {
           this.vertex(undefined);
           this.codeArray.push(v);
@@ -69,7 +69,7 @@
       }, this);
 
       this.generate = _.bind(function() {
-        var n = parseInt(this.vertex());
+        var n = Number(this.vertex());
         if (n > 20) {
           n = 20;
         }
