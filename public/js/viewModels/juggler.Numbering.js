@@ -108,6 +108,24 @@
     }, this);
 
     this.makeFlat = _.bind(function() {
+      function findChild(v, nodes, exclude){
+        var nv = nodes[v],
+          child = nv.child;
+
+        for (var i = 0; i < exclude.length; i++) {
+          child = _.without(child, exclude[i]);
+        }
+        
+        var nexclude = _.union(child, exclude);
+        var result = _.clone(child);
+        for (var i = 0; i < child.length; i++) {
+          var nc = findChild(child[i], nodes, nexclude);
+          result.push(nc);
+        }
+
+        return _.flatten(result);
+      }
+
       var start = 0;
       var nodes = this.tNodes();
 
@@ -115,6 +133,7 @@
         return n.level;
       }));
 
+      console.info('Nodes', nodes);
       console.log('Way form ' + start + ' to ' + last.index);
 
       var longChain = _.clone(last.parents);
@@ -123,6 +142,15 @@
 
       console.log('Chain ', longChain);
 
+      var i;
+      for(i = 0; i < longChain.length; i++){
+        var rv = longChain[i];
+
+        var nchild = findChild(rv, nodes, longChain);
+
+        console.info('Child for ' + rv + ': ', nchild);
+
+      }
 
     }, this);
 
