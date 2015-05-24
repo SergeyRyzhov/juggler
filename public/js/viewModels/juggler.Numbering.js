@@ -108,14 +108,23 @@
     }, this);
 
     this.makeFlat = _.bind(function() {
-      function findChild(v, nodes, exclude){
+      function getNumbers(v, pChain, cChain, nodes) {
+        var n = nodes[n];
+
+        var c = n.child;
+        for (var i = 0; i < exclude.length; i++) {
+          c = _.without(c, exclude[i]);
+        }
+      }
+
+      function findChild(v, nodes, exclude) {
         var nv = nodes[v],
           child = nv.child;
 
         for (var i = 0; i < exclude.length; i++) {
           child = _.without(child, exclude[i]);
         }
-        
+
         var nexclude = _.union(child, exclude);
         var result = _.clone(child);
         for (var i = 0; i < child.length; i++) {
@@ -143,13 +152,51 @@
       console.log('Chain ', longChain);
 
       var i;
-      for(i = 0; i < longChain.length; i++){
+      for (i = 0; i < longChain.length; i++) {
         var rv = longChain[i];
 
         var nchild = findChild(rv, nodes, longChain);
 
         console.info('Child for ' + rv + ': ', nchild);
 
+      }
+
+      var n = this.size();
+
+
+      var parents = [];
+      var map = _.range(n);
+
+      var lastIndx = 0;
+      for (i = 1; i < longChain.length; i++) {
+        var rv = longChain[i];
+
+        var nchild = findChild(longChain[i - 1], nodes, longChain);
+        var tn = this.tNodes();
+        var ranged = _.sortBy(nchild, function(ch) {
+          return -tn[ch].weight;
+        });
+
+        var j;
+        for (j = 0; j < ranged.length; j++) {
+          lastIndx = map[ranged[j]] = lastIndx + 1;
+        }
+
+        lastIndx = map[rv] = lastIndx + 1;
+
+      }
+      console.log('Map: ', map);
+      return;
+      this.tNodes([]);
+      this.size(1);
+      this.tNodes.push(new Node(0, -1));
+      for (i = 0; i < longChain.length; i++) {
+        var rv = longChain[i];
+        var nchild = findChild(rv, nodes, longChain);
+
+        console.info('Child for ' + rv + ': ', nchild);
+        var nn = getNumbers(rv, longChain, nchild, nodes);
+        console.info('New numbers for ' + rv + ': ', nn);
       }
 
     }, this);
