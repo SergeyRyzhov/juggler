@@ -9,7 +9,7 @@ var express = require('express'),
   log4js = require("log4js"),
   compression = require('compression'),
   lessMiddleware = require('less-middleware'),
-  router = express.Router(),
+  router = express.Router({caseSensitive:false}),
   app = express(),
   logger = log4js.getLogger('Server');
 
