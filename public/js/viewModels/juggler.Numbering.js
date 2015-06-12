@@ -1,3 +1,4 @@
+//Component for buils flat numbering of tree
 (function(app, $) {
   function Node(_index, _parent) {
     var parent = _parent;

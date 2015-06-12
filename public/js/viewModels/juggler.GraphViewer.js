@@ -1,3 +1,4 @@
+//Only visualization for extrnal graph from Json
 (function(app, $) {
   ko.components.register('juggler-viewer', {
     viewModel: function(params) {

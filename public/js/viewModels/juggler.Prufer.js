@@ -1,3 +1,4 @@
+//Base prufer code visualization and buiding
 (function(app, $) {
   ko.components.register('juggler-prufer', {
     viewModel: function(params) {

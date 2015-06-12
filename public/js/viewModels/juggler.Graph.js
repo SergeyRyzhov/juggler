@@ -1,3 +1,5 @@
+///Model for graph visualization via vis.js
+
 (function(app, $) {
   ko.components.register('juggler-graph', {
     viewModel: function(params) {
@@ -94,5 +96,5 @@
     // init: graphBinding,
     update: graphBinding
   };
-  
+
 })(window.juggler = window.juggler || {}, jQuery);

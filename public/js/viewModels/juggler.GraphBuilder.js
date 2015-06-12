@@ -1,3 +1,4 @@
+///Simple component for build custom graph structure
 (function(app, $) {
 	function Graph() {
 		var nodes = ko.observableArray();

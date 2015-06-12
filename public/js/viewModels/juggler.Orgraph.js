@@ -1,3 +1,4 @@
+//Exaple forPrufer code for oriened graph
 (function(app, $) {
   ko.components.register('juggler-orgraph', {
     viewModel: function(params) {
