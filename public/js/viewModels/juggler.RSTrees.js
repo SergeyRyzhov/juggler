@@ -1,7 +1,7 @@
 //RS tree builder
-(function(app, $) {
+(function (app, $) {
   ko.components.register('juggler-rstrees', {
-    viewModel: function(params) {
+    viewModel: function (params) {
     },
     template: {
       fromUrl: 'rstrees.html',

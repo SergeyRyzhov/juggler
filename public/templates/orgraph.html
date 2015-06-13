@@ -1,43 +1,40 @@
 <div class='row'>
   <div class='page-header'>
-    <h1><a id='orgraph' href="#orgraph">Oriented graphs</a>
-      <small>input or generate with renumbering</small>
+    <h1>
+      <a id='orgraph' href="#orgraph">Плоская нумерация</a>
+      <small>для ориентированного графа</small>
     </h1>
   </div>
   <div class='col-md-3'>
     <div class="panel panel-success">
       <div class="panel-heading">
-        <h3 class="panel-title">Configuration</h3>
+        <h3 class="panel-title">Настройки</h3>
       </div>
       <div class="panel-body">
-        <input type='number' class='form-control' data-bind='value:vertex, event: {keypress: onEnter}' placeholder='Input number'>
+        <input type='number' class='form-control' data-bind='value:vertex, event: {keypress: onEnter}' placeholder='Введите число'>
         <!-- <div class='input-group'> -->
         <span class='btn-group'>
           <button type='button' class='btn btn-default' data-bind='click:add'>
-            <span class='glyphicon glyphicon-plus' aria-hidden='true' title='Add'></span>
+            <span class='glyphicon glyphicon-plus' aria-hidden='true' title='Добавить'></span>
           </button>
-
           <button type='button' class='btn btn-default' data-bind='click:reset'>
-            <span class='glyphicon glyphicon-remove' aria-hidden='true' title='Reset'></span>
+            <span class='glyphicon glyphicon-remove' aria-hidden='true' title='Сбросить'></span>
           </button>
-
           <button type='button' class='btn btn-default' data-bind='click:generate'>
-            <span class='glyphicon glyphicon-random' aria-hidden='true' title='Generate'></span>
+            <span class='glyphicon glyphicon-random' aria-hidden='true' title='Генерировать'></span>
           </button>
-
           <button type='button' class='btn btn-default' data-bind='click:renumber'>
-            <span class='glyphicon glyphicon-refresh' aria-hidden='true' title='Renumber'></span>
+            <span class='glyphicon glyphicon-refresh' aria-hidden='true' title='Перенумеровать'></span>
           </button>
         </span>
         <!-- </div> -->
-        <!-- ko if:code() != '[]' -->
+        <!-- ko if:code() !=' []' -->
         <div class='well well-sm'>
-          <span class="label label-info">Code</span>
+          <span class="label label-info">Код Прюфера</span>
           <!-- ko text:code -->
           <!-- /ko -->
         </div>
         <!-- /ko -->
-
         <!-- ko if:warning -->
         <div class='well well-sm'>
           <span class="label label-warning" data-bind='text:warning'></span>
@@ -45,56 +42,41 @@
         <!-- /ko -->
       </div>
     </div>
-
     <div class="panel panel-info">
       <div class="panel-heading">
-        <h3 class="panel-title">Information</h3>
+        <h3 class="panel-title">Информация</h3>
       </div>
       <div class="panel-body">
         <div class='well well-sm'>
-          <span class="label label-info">Add</span>
-          the entered vertex to the end of Prufer code
-        </div>
-
+          <span class="label label-info">Добавить</span>вершину в код Прюфера</div>
         <div class='well well-sm'>
-          <span class="label label-success">Generate</span>
-          random Prufer code given length
-        </div>
-
+          <span class="label label-success">Генерировать</span>код Прюфера заданной длины</div>
         <div class='well well-sm'>
-          <span class="label label-success">Renumber</span>
-          the vertices to create a flat numbering
-        </div>
-
+          <span class="label label-success">Перенумеровать</span>вершины от корня к листьям</div>
         <div class='well well-sm'>
-          <span class="label label-warning">Reset</span>
-          current graph
-        </div>
+          <span class="label label-warning">Сбросить</span>текущие настройки</div>
       </div>
     </div>
-
   </div>
-  <div data-bind='component: { name: "juggler-graph", params: { nodes: nodes, edges: edges, orgraph:true }}' class='col-md-7' style='bottom:0px;'></div>
+  <div data-bind='component: { name: "juggler-graph", params: { nodes: nodes, edges: edges, orgraph:true }}' class='col-md-7'
+  style='bottom:0px;'></div>
   <div class='col-md-2'>
     <div class="panel panel-info">
       <div class="panel-heading">
-        <h3 class="panel-title">Graph structure</h3>
+        <h3 class="panel-title">Структура графа</h3>
       </div>
       <div class="panel-body">
-
         <p>
-          <span class="badge" data-bind='text: nodes().length'></span> vertices</p>
+          <span class="badge" data-bind='text: nodes().length'></span>вершин</p>
         <p>
-          <span class="badge" data-bind='text: edges().length'></span> edges</p>
-
+          <span class="badge" data-bind='text: edges().length'></span>рёбер</p>
       </div>
       <div class='well well-sm'>
-        <span class="label label-success"> Edges </span>
+        <span class="label label-success">Рёбра</span>
         <ul data-bind='foreach:edgesText' class='list-group'>
           <li data-bind='text:$data' class='list-group-item'>
         </ul>
       </div>
     </div>
   </div>
-</div>
 </div>

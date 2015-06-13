@@ -3,7 +3,7 @@
   ko.components.register('juggler-forkongithub', {
     viewModel: function (params) {
       return {
-        text: 'Fork me on GitHub',
+        text: 'Следите за мной на GitHub',
         href: 'https://github.com/SergeyRyzhov/juggler'
       };
     },

@@ -1,7 +1,7 @@
 //Base prufer code visualization and buiding
-(function(app, $) {
+(function (app, $) {
   ko.components.register('juggler-prufer', {
-    viewModel: function(params) {
+    viewModel: function (params) {
       this.vertex = ko.observable();
       this.codeArray = ko.observableArray([1, 4, 5, 5]);
 
@@ -10,7 +10,7 @@
       this.warning = ko.observable();
       this.code = ko.observable();
 
-      this.codeArray.subscribe(_.bind(function(newValue) {
+      this.codeArray.subscribe(_.bind(function (newValue) {
         this.code(JSON.stringify(newValue));
 
         var vertices = this.nodes(),
@@ -26,28 +26,28 @@
 
       }, this));
 
-      this.nodes = ko.computed(function() {
+      this.nodes = ko.computed(function () {
         return this.graph().nodes;
       }, this);
 
 
 
-      this.edges = ko.computed(function() {
+      this.edges = ko.computed(function () {
         return this.graph().edges;
       }, this);
 
-      this.edgesText = ko.computed(function() {
-        return _.map(this.edges(), function(edge) {
+      this.edgesText = ko.computed(function () {
+        return _.map(this.edges(), function (edge) {
           return '{' + edge[0] + ',' + edge[1] + '}';
         })
       }, this);
 
-      this.onEnter = _.bind(function(d, e) {
+      this.onEnter = _.bind(function (d, e) {
         // e.keyCode === 13 && this.add();
         return true;
       }, this);
 
-      this.add = _.bind(function() {
+      this.add = _.bind(function () {
         // var str = this.vertex();
         // var re = /(\d).?(\d)/i;
         // var found = str.match(re)
@@ -64,12 +64,12 @@
         }
       }, this);
 
-      this.reset = _.bind(function() {
+      this.reset = _.bind(function () {
         this.codeArray([]);
         this.graph(ParsePrufer(this.codeArray()));
       }, this);
 
-      this.generate = _.bind(function() {
+      this.generate = _.bind(function () {
         var n = Number(this.vertex());
         if (n > 20) {
           n = 20;
@@ -100,7 +100,7 @@
       nodes = _.range(1, n + 1);
 
     for (var i = 0; i < arr.length; i++) {
-      var minimum = _.min(_.filter(B, function(b) {
+      var minimum = _.min(_.filter(B, function (b) {
         return !_.contains(arr, b);
       }));
 

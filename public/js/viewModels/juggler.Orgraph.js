@@ -1,7 +1,7 @@
-//Exaple forPrufer code for oriened graph
-(function(app, $) {
+//Exaple for Prufer code on oriened graph
+(function (app, $) {
   ko.components.register('juggler-orgraph', {
-    viewModel: function(params) {
+    viewModel: function (params) {
       this.vertex = ko.observable();
       this.codeArray = ko.observableArray();
 
@@ -9,7 +9,7 @@
       this.warning = ko.observable();
       this.code = ko.observable();
 
-      this.codeArray.subscribe(_.bind(function(newValue) {
+      this.codeArray.subscribe(_.bind(function (newValue) {
         this.code(JSON.stringify(newValue));
 
         var vertices = this.nodes(),
@@ -25,26 +25,26 @@
 
       }, this));
 
-      this.nodes = ko.computed(function() {
+      this.nodes = ko.computed(function () {
         return this.graph().nodes;
       }, this);
 
-      this.edges = ko.computed(function() {
+      this.edges = ko.computed(function () {
         return this.graph().edges;
       }, this);
 
-      this.edgesText = ko.computed(function() {
-        return _.map(this.edges(), function(edge) {
+      this.edgesText = ko.computed(function () {
+        return _.map(this.edges(), function (edge) {
           return '(' + edge[0] + ',' + edge[1] + ')';
         })
       }, this);
 
-      this.onEnter = _.bind(function(d, e) {
+      this.onEnter = _.bind(function (d, e) {
         // e.keyCode === 13 && this.add();
         return true;
       }, this);
 
-      this.add = _.bind(function() {
+      this.add = _.bind(function () {
         var v = Number(this.vertex());
         if (v > 0) {
           this.vertex(undefined);
@@ -55,12 +55,12 @@
         }
       }, this);
 
-      this.reset = _.bind(function() {
+      this.reset = _.bind(function () {
         this.codeArray([]);
         this.graph(ParsePrufer([]));
       }, this);
 
-      this.generate = _.bind(function() {
+      this.generate = _.bind(function () {
         var n = Number(this.vertex());
         if (n > 20) {
           n = 20;
@@ -72,81 +72,81 @@
         this.graph(ParsePrufer(this.codeArray()));
       }, this);
 
-      this.renumber = _.bind(function() {
-          function swap(edges, node, newNode) {
-            _.each(edges, function(edge) {
-              if (edge[0] == node) {
-                edge[0] = newNode;
-              } else
+      this.renumber = _.bind(function () {
+        function swap(edges, node, newNode) {
+          _.each(edges, function (edge) {
+            if (edge[0] == node) {
+              edge[0] = newNode;
+            } else
 
               if (edge[0] == newNode) {
                 edge[0] = node;
               }
 
-              if (edge[1] == newNode) {
-                edge[1] = node;
-              } else
+            if (edge[1] == newNode) {
+              edge[1] = node;
+            } else
 
               if (edge[1] == node) {
                 edge[1] = newNode;
               }
-            });
-          }
+          });
+        }
 
-          function swapArray(array, node, newNode) {
-            return _.map(array, function(value) {
-              if (value == node) {
-                return newNode;
-              }
-              if (value == newNode) {
-                return node;
-              }
-              return value;
-            });
-          }
+        function swapArray(array, node, newNode) {
+          return _.map(array, function (value) {
+            if (value == node) {
+              return newNode;
+            }
+            if (value == newNode) {
+              return node;
+            }
+            return value;
+          });
+        }
 
 
-          var vertices = this.nodes(),
-            edges = this.edges();
-          // code = this.codeArray();
+        var vertices = this.nodes(),
+          edges = this.edges();
+        // code = this.codeArray();
 
-          var firstVertex = _.find(vertices, function(vertex) {
-            return _.every(edges, function(edge) {
-              return edge[1] != vertex;
-            });
+        var firstVertex = _.find(vertices, function (vertex) {
+          return _.every(edges, function (edge) {
+            return edge[1] != vertex;
+          });
+        });
+
+        // console.log(firstVertex);
+
+        var maxV = _.max(vertices),
+          minV = _.min(vertices);
+
+        // console.log(maxV);
+        // console.log(minV);
+
+        swap(edges, firstVertex, 1);
+        // code = swapArray(code, firstVertex, 1);
+        firstVertex = 1;
+        for (var i = 1; i <= vertices.length; i++) {
+          var wale = _.filter(edges, function (edge) {
+            return edge[0] == i;
           });
 
-          // console.log(firstVertex);
-
-          var maxV = _.max(vertices),
-            minV = _.min(vertices);
-
-          // console.log(maxV);
-          // console.log(minV);
-
-          swap(edges, firstVertex, 1);
-          // code = swapArray(code, firstVertex, 1);
-          firstVertex = 1;
-          for (var i = 1; i <= vertices.length; i++) {
-            var wale = _.filter(edges, function(edge) {
-              return edge[0] == i;
-            });
-
-            // console.log(wale);
-            _.each(wale, function(edge) {
-              swap(edges, edge[1], firstVertex + 1);
-              // code = swapArray(code, edge[1], firstVertex + 1);
-              firstVertex++;
-            });
-          }
-
-          this.graph({
-            nodes: vertices,
-            edges: edges
+          // console.log(wale);
+          _.each(wale, function (edge) {
+            swap(edges, edge[1], firstVertex + 1);
+            // code = swapArray(code, edge[1], firstVertex + 1);
+            firstVertex++;
           });
+        }
 
-          this.codeArray([]);
-        },
+        this.graph({
+          nodes: vertices,
+          edges: edges
+        });
+
+        this.codeArray([]);
+      },
         this);
 
 
@@ -167,7 +167,7 @@
       nodes = _.range(1, n + 1);
 
     for (var i = 0; i < arr.length; i++) {
-      var minimum = _.min(_.filter(B, function(b) {
+      var minimum = _.min(_.filter(B, function (b) {
         return !_.contains(arr, b);
       }));
 
