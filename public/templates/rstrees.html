@@ -11,31 +11,19 @@
       </div>
       <div class="panel-body">
         <div class='input-group'>
-          <input type='number' class='form-control' data-bind='value:parent' placeholder=''>
+          <input type='number' class='form-control' data-bind='value:nodeSize' placeholder='введите S'>
+          <input type='number' class='form-control' data-bind='value:intersectionSize' placeholder='введите R'>
+          <input type='number' class='form-control' data-bind='value:amountNodes' placeholder='введите число звеньев'>
         </div>
 
         <span class='btn-group'>
-          <button type='button' class='btn btn-default' data-bind='click:add'>
-            <span class='glyphicon glyphicon-plus' aria-hidden='true' title='Add edge'></span>
+          <button type='button' class='btn btn-default' data-bind='click:build'>
+            <span class='glyphicon glyphicon-plus' aria-hidden='true' title='Построить'></span>
           </button>
 
           <button type='button' class='btn btn-default' data-bind='click:reset'>
-            <span class='glyphicon glyphicon-remove' aria-hidden='true' title='Reset'></span>
+            <span class='glyphicon glyphicon-remove' aria-hidden='true' title='Сбросить'></span>
           </button>
-        </span>
-
-        <div class='input-group'>
-          <input type='number' class='form-control' data-bind='value:root' placeholder=''>
-        </div>
-
-
-        <span class='btn-group'>
-          <button type='button' class='btn btn-default' data-bind='click:setRoot'>
-            <span class='glyphicon glyphicon-random' aria-hidden='true' title='Set root'></span>
-          </button>
-            <button type='button' class='btn btn-default' data-bind='click:renumber'>
-              <span class='glyphicon glyphicon-random' aria-hidden='true' title='Renumber'></span>
-            </button>
         </span>
 
         <!-- ko if:warning -->
@@ -48,22 +36,17 @@
 
     <div class="panel panel-info">
       <div class="panel-heading">
-        <h3 class="panel-title">Information</h3>
+        <h3 class="panel-title">Настройки</h3>
       </div>
       <div class="panel-body">
         <div class='well well-sm'>
-          <span class="label label-info">Add</span>
-          the entered vertex or edge to graph
+          <span class="label label-info">Построить RS-дерево</span>
+          по заданным параметрам
         </div>
 
         <div class='well well-sm'>
-          <span class="label label-success">Renumber</span>
-          vertices in current graph
-        </div>
-
-        <div class='well well-sm'>
-          <span class="label label-warning">Reset</span>
-          current graph
+          <span class="label label-warning">Сбросить</span>
+          тнекщин гастройки
         </div>
       </div>
     </div>
@@ -72,18 +55,16 @@
   <div class='col-md-2'>
     <div class="panel panel-info">
       <div class="panel-heading">
-        <h3 class="panel-title">Graph structure</h3>
+        <h3 class="panel-title">Структура графа</h3>
       </div>
       <div class="panel-body">
-
         <p>
-          <span class="badge" data-bind='text: nodes().length'></span> vertices</p>
+          <span class="badge" data-bind='text: nodes().length'></span>вершин</p>
         <p>
-          <span class="badge" data-bind='text: edges().length'></span> edges</p>
-
+          <span class="badge" data-bind='text: edges().length'></span>рёбер</p>
       </div>
       <div class='well well-sm'>
-        <span class="label label-success"> Edges </span>
+        <span class="label label-success">Рёбра</span>
         <ul data-bind='foreach:edgesText' class='list-group'>
           <li data-bind='text:$data' class='list-group-item'>
         </ul>
