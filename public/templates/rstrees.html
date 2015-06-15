@@ -20,9 +20,9 @@
           <button type="button" class="btn btn-default" data-bind="click:build">
             <span class="glyphicon glyphicon-play" aria-hidden="true" title="Построить"></span>
           </button>
-          <button type="button" class="btn btn-default" data-bind="click:reset">
+          <!--<button type="button" class="btn btn-default" data-bind="click:reset">
             <span class="glyphicon glyphicon-remove" aria-hidden="true" title="Сбросить"></span>
-          </button>
+          </button>-->
         </span>
         <!-- ko if:warning -->
         <div class="well well-sm">
@@ -50,7 +50,7 @@
       </div>
     </div>
     <!-- /ko -->
-    <div class="panel panel-info">
+    <!--<div class="panel panel-info">
       <div class="panel-heading">
         <h3 class="panel-title">Настройки</h3>
       </div>
@@ -60,14 +60,15 @@
         <div class="well well-sm">
           <span class="label label-warning">Сбросить</span>текущие гастройки</div>
       </div>
-    </div>
-  </div>
+    </div>--></div>
   <div class="col-md-7">
-    <div data-bind="component: { name: 'juggler-graph', params: { nodes: nodes, edges: edges, orgraph:false }}" style="bottom:0px;"></div>
+    <div data-bind="component: { name: 'juggler-graph', params: { nodes: nodes, edges: edges, orgraph:false }}" style="bottom:0px;"
+    class="col-md-7"></div>
     <div data-bind="component: { name: 'juggler-graph', params: { nodes: shortTreeNodes, edges: shortTreeEdges, orgraph:false }}"
-    style="bottom:0px;"></div>
+    style="bottom:0px;" class="col-md-5"></div>
   </div>
   <div class="col-md-2">
+    <!-- ko if:built -->
     <div class="panel panel-info">
       <div class="panel-heading">
         <h3 class="panel-title">Структура графа</h3>
@@ -85,5 +86,6 @@
         </ul>
       </div>
     </div>
+    <!-- /ko -->
   </div>
 </div>
