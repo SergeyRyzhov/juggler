@@ -5,11 +5,16 @@
 
       var amountNodes = ko.observable(5);
       var nodeSize = ko.observable(4);
-      var intersectionSize = ko.observable(2);
-
+      var intersectionSize = ko.observable(2);     
+      
+      var built = ko.observable(false);
 
       var treeNodes = ko.observableArray([]);
       var treeEdges = ko.observableArray([]);
+
+
+      var fullTreeCode = ko.observableArray([]);
+      var shortTreeCode = ko.observableArray([]);
 
       function buildRSTree(r, s, k) {
         s = s || 2;
@@ -50,7 +55,7 @@
           fullCode.push(node);
           shortCode.push(snode);
 
-          pNode = node;
+          pNode = _.clone(node);
 
         }
 
@@ -72,15 +77,31 @@
         var res = buildRSTree(nodeSize(), intersectionSize(), amountNodes());
 
         console.dir(res);
+
+        //var fCode = _.flatten(res.fullCode);
+        //var sCode = _.flatten(res.shortCode);
+
+        //console.dir(fCode);
+        //console.dir(sCode);
+
+        var fCode = '';
+        for (var i = 0; i < res.fullCode.length; i++) {
+          fCode += _s.humanize(res.fullCode[i]) + '|';
+        }
+        fullTreeCode(fCode);
+
+        var sCode = '';
+        for (var i = 1; i < res.shortCode.length; i++) {
+          sCode += _s.humanize(res.shortCode[i]) + '|';
+        }
+        shortTreeCode(sCode);
         
-        var fCode = _.flatten(res.fullCode);        
-        var sCode = _.flatten(res.shortCode);
-        
-        console.dir(fCode);
-        console.dir(sCode);
+        //shortTreeCode(_s.humanize(sCode));
 
         treeNodes(res.nodes);
         treeEdges(res.edges);
+        
+        built(true);
       }
 
       return {
@@ -97,6 +118,11 @@
         },
         nodes: treeNodes,
         edges: treeEdges,
+
+        fullCode: fullTreeCode,
+        shortCode: shortTreeCode,
+        
+        built:built,
 
         edgesText: '',
         nodesText: ''

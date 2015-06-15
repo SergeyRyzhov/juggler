@@ -1063,3 +1063,5 @@ module.exports = function words(str, delimiter) {
 },{"./isBlank":26,"./trim":61}]},{},[14])
 (14)
 });
+
+_s = s;
