@@ -28,5 +28,10 @@
       return app.unwrap(wrapper());
     }
   };
+  
+  app.random = function (max, min) {
+    min = min || 0;    
+    return Math.floor( (max - min) * Math.random()) + min;
+  };
 
 })(window.juggler = window.juggler || {}, jQuery);
