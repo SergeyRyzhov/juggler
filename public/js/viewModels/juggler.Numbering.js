@@ -1,5 +1,5 @@
 //Component for buils flat numbering of tree
-(function(app, $) {
+(function (app, $) {
   function Node(_index, _parent) {
     var parent = _parent;
     var index = _index;
@@ -17,16 +17,17 @@
 
   function Three() {
     this.tNodes = ko.observableArray([]);
+    this.labels = ko.observableArray([]);
     this.size = ko.observable(1);
 
     this.tNodes.push(new Node(0, -1));
 
-    this.nodes = ko.computed(function() {
+    this.nodes = ko.computed(function () {
 
       return _.range(1, this.size() + 1);
     }, this);
 
-    this.edges = ko.computed(function() {
+    this.edges = ko.computed(function () {
       var s = this.size();
       var result = [];
       for (var i = 0; i < this.tNodes().length; i++) {
@@ -40,7 +41,7 @@
       return result;
     }, this);
 
-    this.setRoot = _.bind(function(v) {
+    this.setRoot = _.bind(function (v) {
       function AddParent(v, nodes, size, parents, mask) {
         if (mask.length == nodes().length) {
           return;
@@ -84,7 +85,7 @@
       console.log('Nodes:', this.tNodes());
     }, this);
 
-    this.addNode = _.bind(function(parent) {
+    this.addNode = _.bind(function (parent) {
       if (parent < this.size()) {
         this.tNodes()[parent].child.push(this.size());
         var node = new Node(this.size(), parent);
@@ -108,7 +109,7 @@
       }
     }, this);
 
-    this.makeFlat = _.bind(function() {
+    this.makeFlat = _.bind(function () {
       function getNumbers(v, pChain, cChain, nodes) {
         var n = nodes[n];
 
@@ -139,7 +140,7 @@
       var start = 0;
       var nodes = this.tNodes();
 
-      var last = _.last(_.sortBy(nodes, function(n) {
+      var last = _.last(_.sortBy(nodes, function (n) {
         return n.level;
       }));
 
@@ -174,7 +175,7 @@
 
         var nchild = findChild(longChain[i - 1], nodes, longChain);
         var tn = this.tNodes();
-        var ranged = _.sortBy(nchild, function(ch) {
+        var ranged = _.sortBy(nchild, function (ch) {
           return -tn[ch].weight;
         });
 
@@ -187,6 +188,12 @@
 
       }
       console.log('Map: ', map);
+      this.labels.push(0);
+      for (var index = 0; index < map.length; index++) {
+        var element = map[index];
+        this.labels.push(element + 1);
+      }
+
       return;
       this.tNodes([]);
       this.size(1);
@@ -202,7 +209,7 @@
 
     }, this);
 
-    this.reset = _.bind(function(parent) {
+    this.reset = _.bind(function (parent) {
 
       this.tNodes([]);
       this.size(1);
@@ -212,7 +219,7 @@
   }
 
   ko.components.register('juggler-numbering', {
-    viewModel: function(params) {
+    viewModel: function (params) {
       this.parent = ko.observable();
       this.root = ko.observable();
       this.selectedVertex = ko.observable(1);
@@ -220,37 +227,41 @@
       this.graph = new Three();
       this.warning = ko.observable();
 
-      this.nodes = ko.computed(function() {
+      this.nodes = ko.computed(function () {
         function compareNumbers(a, b) {
           return a - b;
         }
         return this.graph.nodes().sort(compareNumbers);
       }, this);
 
-      this.edges = ko.computed(function() {
+      this.edges = ko.computed(function () {
         return this.graph.edges();
       }, this);
 
-      this.edgesText = ko.computed(function() {
-        return _.map(this.edges(), function(edge) {
+      this.labels = ko.computed(function () {
+        return this.graph.labels();
+      }, this);
+
+      this.edgesText = ko.computed(function () {
+        return _.map(this.edges(), function (edge) {
           return '{' + edge[0] + ',' + edge[1] + '}';
         })
       }, this);
 
-      this.add = _.bind(function() {
+      this.add = _.bind(function () {
         this.graph.addNode(Number(this.parent()) - 1);
       }, this);
 
-      this.reset = _.bind(function() {
+      this.reset = _.bind(function () {
         this.graph.reset();
       }, this);
 
-      this.setRoot = _.bind(function() {
+      this.setRoot = _.bind(function () {
         this.graph.setRoot(Number(this.root()) - 1);
 
       }, this);
 
-      this.renumber = _.bind(function() {
+      this.renumber = _.bind(function () {
         this.graph.makeFlat();
       }, this);
     },

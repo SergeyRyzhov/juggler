@@ -48,7 +48,7 @@
           id: node
         };
 
-        nodeObj.label = labels ? (node + '(' + labels[node] + ')'): node;
+        nodeObj.label = labels  && labels[node] ? (node + '(' + labels[node] + ')'): node;
 
         return nodeObj;
       });

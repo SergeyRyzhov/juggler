@@ -16,10 +16,10 @@
         </div>
         <span class='btn-group'>
           <button type='button' class='btn btn-default' data-bind='click:add'>
-            <span class='glyphicon glyphicon-plus' aria-hidden='true' title='Добавить ребро'></span>
+            <span class='glyphicon glyphicon-plus' aria-hidden='true' title='Добавить ребро'>Добавить ребро</span>
           </button>
           <button type='button' class='btn btn-default' data-bind='click:reset'>
-            <span class='glyphicon glyphicon-remove' aria-hidden='true' title='Сбросить'></span>
+            <span class='glyphicon glyphicon-remove' aria-hidden='true' title='Очистить'>Очистить</span>
           </button>
         </span>
         <div class='input-group'>
@@ -27,10 +27,10 @@
         </div>
         <span class='btn-group'>
           <button type='button' class='btn btn-default' data-bind='click:setRoot'>
-            <span class='glyphicon glyphicon-random' aria-hidden='true' title='Перенумеровать'></span>
+            <span class='glyphicon glyphicon-random' aria-hidden='true' title='Перенумеровать'>Перенумеровать</span>
           </button>
           <button type='button' class='btn btn-default' data-bind='click:renumber'>
-            <span class='glyphicon glyphicon-random' aria-hidden='true' title='Создать плоскую нумерацию'></span>
+            <span class='glyphicon glyphicon-random' aria-hidden='true' title='Создать плоскую нумерацию'>Создать плоскую нумерацию</span>
           </button>
         </span>
         <!-- ko if:warning -->
@@ -50,11 +50,11 @@
         <div class='well well-sm'>
           <span class="label label-success">Перенумеровать</span>вершины в текущем графе</div>
         <div class='well well-sm'>
-          <span class="label label-warning">Сбросить</span>текущие настройки</div>
+          <span class="label label-warning">Очистить</span>текущие настройки</div>
       </div>
     </div>
   </div>
-  <div data-bind='component: { name: "juggler-graph", params: { nodes: nodes, edges: edges, orgraph:true }}' class='col-md-7'
+  <div data-bind='component: { name: "juggler-graph", params: { nodes: nodes, edges: edges, labels:labels, orgraph:true }}' class='col-md-7'
   style='bottom:0px;'></div>
   <div class='col-md-2'>
     <div class="panel panel-info">
