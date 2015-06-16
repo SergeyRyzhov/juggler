@@ -1,8 +1,8 @@
 ///Model for graph visualization via vis.js
 
-(function(app, $) {
+(function (app, $) {
   ko.components.register('juggler-graph', {
-    viewModel: function(params) {
+    viewModel: function (params) {
       params = params || {
         nodes: [1, 2, 3, 4, 5],
         edges: [
@@ -19,11 +19,13 @@
 
       var nodes = params.nodes,
         edges = params.edges,
-        orgraph = params.orgraph;
+        orgraph = params.orgraph
+        labels = params.labels;
 
       this.nodes = ko.observable(nodes);
       this.edges = ko.observable(edges);
       this.orgraph = ko.observable(orgraph);
+      this.labels = ko.observable(labels);
       this.network = ko.observable();
     },
     template: {
@@ -38,51 +40,49 @@
 
     var params = ko.utils.unwrapObservable(valueAccessor());
 
-    function nodesToObjects(nodes) {
+    function nodesToObjects(nodes, labels) {
       nodes = ko.utils.unwrapObservable(nodes);
-      return _.map(nodes, function(node) {
-        return {
+      return _.map(nodes, function (node) {
+
+        var nodeObj = {
           id: node
         };
+
+        nodeObj.label = labels ? (node + '(' + labels[node] + ')'): node;
+
+        return nodeObj;
       });
     }
 
-    function edgesToObjects(edges) {
+    function edgesToObjects(edges, orgraph) {
       edges = ko.utils.unwrapObservable(edges);
-      return _.map(edges, function(edge) {
-        return {
+      return _.map(edges, function (edge) {
+        var edgeObj = {
           from: edge[0],
           to: edge[1]
         };
+
+        if (orgraph) {
+          edgeObj.arrows = 'to';
+        }
+
+        return edgeObj;
       });
     }
 
-    function graphToDot(nodes, edges) {
-      edges = ko.utils.unwrapObservable(edges);
-      var digraph = 'digraph {' + _.reduce(edges, function(memo, edge) {
-        return memo + edge[0].toString() + '->' + edge[1].toString() +
-          ';';
-      }, '') + '}';
-      return digraph;
-    }
-
     var data = {};
-    if (params.orgraph) {
-      data = {
-        dot: graphToDot(params.nodes, params.edges)
-      };
-    } else {
-      data = {
-        nodes: nodesToObjects(params.nodes),
-        edges: edgesToObjects(params.edges)
-      };
-    }
+    data = {
+      nodes: nodesToObjects(params.nodes, ko.utils.unwrapObservable(params.labels)),
+      edges: edgesToObjects(params.edges, params.orgraph)
+    };
 
     var options = {
       width: element.clientWidth + 'px',
       height: element.clientHeight + 'px',
-      navigation: true,
-      keyboard: true
+      manipulation: true,
+      interaction: {
+        keyboard: true
+      }
     };
 
     if (params.network()) {

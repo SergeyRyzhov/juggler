@@ -14,17 +14,23 @@
         <div class='input-group'>
           <textarea class='form-control' data-bind='value:beforeJson' placeholder='json для первого графа' />
           <textarea class='form-control' data-bind='value:afterJson' placeholder='json для второго графа' />
+          <textarea class='form-control' data-bind='value:beforeLabelsJson' placeholder='json подписей для первого графа' />
+          <textarea class='form-control' data-bind='value:afterLabelsJson' placeholder='json подписей для второго графа' />
         </div>
         <span class='btn-group'>
           <button type='button' class='btn btn-default' data-bind='click:apply'>
             <span class='glyphicon glyphicon-play' aria-hidden='true' title='Применить'></span>
           </button>
         </span>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" data-bind="checked:orgraph">Ориентированный граф</label>
+        </div>
       </div>
     </div>
   </div>
-  <div data-bind='component: { name: "juggler-graph", params: { nodes: before.nodes, edges: before.edges, orgraph:true }}'
+  <div data-bind='component: { name: "juggler-graph", params: { nodes: before.nodes, edges: before.edges, labels:before.labels, orgraph:orgraph() }}'
   class='col-md-5' style='bottom:0px;'></div>
-  <div data-bind='component: { name: "juggler-graph", params: { nodes: after.nodes, edges: after.edges, orgraph:true }}'
+  <div data-bind='component: { name: "juggler-graph", params: { nodes: after.nodes, edges: after.edges, labels:after.labels, orgraph:orgraph() }}'
   class='col-md-5' style='bottom:0px;'></div>
 </div>
