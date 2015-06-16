@@ -40,6 +40,27 @@
         <!-- /ko -->
       </div>
     </div>
+    <!-- ko if:oldMark() > 0 -->
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <h3 class="panel-title">Результаты</h3>
+      </div>
+      <div class="panel-body">
+        <div class="well well-sm">
+          <h3>Оценка начальной нумерации
+            <span class="label label-info label-multiline" data-bind="text:oldMark"></span>
+          </h3>
+        </div>
+        <!-- ko if:mark()> 0 -->
+        <div class="well well-sm">
+          <h3>Оценка новой нумерации
+            <span class="label label-warning label-multiline" data-bind="text:mark"></span>
+          </h3>
+        </div>
+        <!-- /ko -->
+      </div>
+    </div>
+    <!-- /ko -->
     <div class="panel panel-info">
       <div class="panel-heading">
         <h3 class="panel-title">Информация</h3>
@@ -54,8 +75,8 @@
       </div>
     </div>
   </div>
-  <div data-bind='component: { name: "juggler-graph", params: { nodes: nodes, edges: edges, labels:labels, orgraph:false }}' class='col-md-7'
-  style='bottom:0px;'></div>
+  <div data-bind='component: { name: "juggler-graph", params: { nodes: nodes, edges: edges, labels:labels, orgraph:false }}'
+  class='col-md-7' style='bottom:0px;'></div>
   <div class='col-md-2'>
     <div class="panel panel-info">
       <div class="panel-heading">

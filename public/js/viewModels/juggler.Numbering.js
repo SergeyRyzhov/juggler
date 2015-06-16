@@ -41,6 +41,28 @@
       return result;
     }, this);
 
+    this.oldMark = ko.computed(function () {
+      var mark = 0;
+
+      for (var index = 0; index < this.edges().length; index++) {
+        var edge = this.edges()[index];
+        mark += Math.abs(edge[0] - edge[1]);
+      }
+      console.info('Old mark', mark);
+      return mark;
+    }, this);
+
+    this.mark = ko.computed(function () {
+      var mark = 0;
+      var lb = this.labels();
+      for (var index = 0; index < this.edges().length; index++) {
+        var edge = this.edges()[index];
+        mark += Math.abs(lb[edge[0]] - lb[edge[1]]);
+      }
+      console.info('Mark', mark);
+      return mark;
+    }, this);
+
     this.setRoot = _.bind(function (v) {
       function AddParent(v, nodes, size, parents, mask) {
         if (mask.length == nodes().length) {
@@ -240,6 +262,14 @@
 
       this.labels = ko.computed(function () {
         return this.graph.labels();
+      }, this);
+
+      this.oldMark = ko.computed(function () {
+        return this.graph.oldMark();
+      }, this);
+
+      this.mark = ko.computed(function () {
+        return this.graph.mark();
       }, this);
 
       this.edgesText = ko.computed(function () {
