@@ -79,10 +79,10 @@
     var options = {
       width: element.clientWidth + 'px',
       height: element.clientHeight + 'px',
-      manipulation: true,
-      interaction: {
-        keyboard: true
-      }
+      // manipulation: true,
+      // interaction: {
+      //   keyboard: true
+      // }
     };
 
     if (params.network()) {
