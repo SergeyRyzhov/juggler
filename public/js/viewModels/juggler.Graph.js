@@ -53,7 +53,7 @@
 
         nodeObj.label = labels && labels[node] ? (node + '(' + labels[node] + ')') : node;
         var color;
-        colors && colors[node] && (color = Math.floor((colors[node] / colors.length) * 255));
+        colors && colors[node] && (color = Math.floor((colors[node] / _.max(colors)) * 255));
         colors && colors[node] && (nodeObj.color = 'rgba(' + color + ',' + color + ',' + 0 + ', 0.7)');
         return nodeObj;
       });
