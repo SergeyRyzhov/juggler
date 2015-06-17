@@ -210,6 +210,7 @@
 
       }
       console.log('Map: ', map);
+      this.labels([]);
       this.labels.push(0);
       for (var index = 0; index < map.length; index++) {
         var element = map[index];
@@ -235,6 +236,7 @@
 
       this.tNodes([]);
       this.size(1);
+      this.labels([]);
 
       this.tNodes.push(new Node(0, -1));
     }, this);
