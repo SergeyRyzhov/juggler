@@ -43,10 +43,6 @@
     var params = ko.utils.unwrapObservable(valueAccessor());
 
     function nodesToObjects(nodes, labels, colors) {
-      var colorsRaw = ['aqua', 'black', 'blue', 'fuchsia', 'gray', 'green',
-        'lime', 'maroon', 'navy', 'olive', 'orange', 'purple', 'red',
-        'silver', 'teal', 'white', 'yellow'];
-
       nodes = ko.utils.unwrapObservable(nodes);
       return _.map(nodes, function (node) {
 
@@ -88,10 +84,11 @@
     var options = {
       width: element.clientWidth + 'px',
       height: element.clientHeight + 'px',
-      // manipulation: true,
-      // interaction: {
-      //   keyboard: true
-      // }
+      manipulation: true,
+      interaction: {
+        keyboard: true,
+        navigationButtons:true
+      }
     };
 
     if (params.network()) {
