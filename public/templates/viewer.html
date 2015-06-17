@@ -14,8 +14,8 @@
         <div class='input-group'>
           <textarea class='form-control' data-bind='value:beforeJson' placeholder='json для первого графа' />
           <textarea class='form-control' data-bind='value:afterJson' placeholder='json для второго графа' />
-          <textarea class='form-control' data-bind='value:beforeLabelsJson' placeholder='json подписей для первого графа' />
-          <textarea class='form-control' data-bind='value:afterLabelsJson' placeholder='json подписей для второго графа' />
+          <textarea class='form-control' data-bind='value:beforeLabelsJson' placeholder='json цветов для первого графа' />
+          <textarea class='form-control' data-bind='value:afterLabelsJson' placeholder='json цветов для второго графа' />
         </div>
         <span class='btn-group'>
           <button type='button' class='btn btn-default' data-bind='click:apply'>
@@ -28,9 +28,30 @@
         </div>
       </div>
     </div>
+    <!-- ko if:oldMark() > 0 -->
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <h3 class="panel-title">Результаты</h3>
+      </div>
+      <div class="panel-body">
+        <div class="well well-sm">
+          <h3>Оценка нумерации для первого графа
+            <span class="label label-info label-multiline" data-bind="text:oldMark"></span>
+          </h3>
+        </div>
+        <!-- ko if:mark()> 0 -->
+        <div class="well well-sm">
+          <h3>Оценка нумерации для второго графа
+            <span class="label label-warning label-multiline" data-bind="text:mark"></span>
+          </h3>
+        </div>
+        <!-- /ko -->
+      </div>
+    </div>
+    <!-- /ko -->
   </div>
-  <div data-bind='component: { name: "juggler-graph", params: { nodes: before.nodes, edges: before.edges, labels:before.labels, orgraph:orgraph() }}'
+  <div data-bind='component: { name: "juggler-graph", params: { nodes: before.nodes, edges: before.edges, labels:before.labels,colors:before.colors, orgraph:orgraph() }}'
   class='col-md-5' style='bottom:0px;'></div>
-  <div data-bind='component: { name: "juggler-graph", params: { nodes: after.nodes, edges: after.edges, labels:after.labels, orgraph:orgraph() }}'
+  <div data-bind='component: { name: "juggler-graph", params: { nodes: after.nodes, edges: after.edges, labels:after.labels,colors:after.colors, orgraph:orgraph() }}'
   class='col-md-5' style='bottom:0px;'></div>
 </div>

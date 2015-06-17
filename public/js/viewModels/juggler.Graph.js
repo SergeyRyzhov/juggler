@@ -19,13 +19,15 @@
 
       var nodes = params.nodes,
         edges = params.edges,
-        orgraph = params.orgraph
-        labels = params.labels;
+        orgraph = params.orgraph,
+        labels = params.labels,
+        colors = params.colors;
 
       this.nodes = ko.observable(nodes);
       this.edges = ko.observable(edges);
       this.orgraph = ko.observable(orgraph);
       this.labels = ko.observable(labels);
+      this.colors = ko.observable(colors);
       this.network = ko.observable();
     },
     template: {
@@ -40,16 +42,23 @@
 
     var params = ko.utils.unwrapObservable(valueAccessor());
 
-    function nodesToObjects(nodes, labels) {
+    function nodesToObjects(nodes, labels, colors) {
+      var colorsRaw = ['aqua', 'black', 'blue', 'fuchsia', 'gray', 'green',
+        'lime', 'maroon', 'navy', 'olive', 'orange', 'purple', 'red',
+        'silver', 'teal', 'white', 'yellow'];
+
       nodes = ko.utils.unwrapObservable(nodes);
       return _.map(nodes, function (node) {
 
         var nodeObj = {
-          id: node
+          id: node,
+          font: '18px verdana blue'
         };
 
-        nodeObj.label = labels  && labels[node] ? (node + '(' + labels[node] + ')'): node;
-
+        nodeObj.label = labels && labels[node] ? (node + '(' + labels[node] + ')') : node;
+        var color;
+        colors && colors[node] && (color = Math.floor((colors[node] / colors.length) * 255));
+        colors && colors[node] && (nodeObj.color = 'rgba(' + color + ',' + color + ',' + 0 + ', 0.7)');
         return nodeObj;
       });
     }
@@ -72,7 +81,7 @@
 
     var data = {};
     data = {
-      nodes: nodesToObjects(params.nodes, ko.utils.unwrapObservable(params.labels)),
+      nodes: nodesToObjects(params.nodes, ko.utils.unwrapObservable(params.labels), ko.utils.unwrapObservable(params.colors)),
       edges: edgesToObjects(params.edges, params.orgraph)
     };
 
